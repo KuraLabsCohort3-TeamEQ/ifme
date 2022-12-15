@@ -12,11 +12,12 @@ pipeline {
           }
         }
       }
+      
       stage ('Push Image'){
         steps {
           withCredentials([string(credentialsId: 'DOCKERHUB_UNAME', variable: 'dockerhub_uname'),
-                           string(credentialsId: 'DOCKERHUB_PASSWD', variable: 'dockerhub_passwd'),
-                           string(credentialsId: 'SUDO_JENKINS', variable: 'sudo_jenkins')]) {
+                            string(credentialsId: 'DOCKERHUB_PASSWD', variable: 'dockerhub_passwd'),
+                               string(credentialsId: 'SUDO_JENKINS', variable: 'sudo_jenkins')]) {
           sh '''#!/bin/bash
           echo "Does it get to this step?"
           # echo ${sudo_jenkins} | sudo -S docker login --username=${dockerhub_uname} --password=${dockerhub_passwd}
@@ -25,6 +26,7 @@ pipeline {
           }
         }
       }
+      
       stage ('Change Context'){
         steps {
           sh '''#!/bin/bash
@@ -33,6 +35,7 @@ pipeline {
           '''
         }
       }
+      
       stage('Docker Compose to ECS') {
         steps {
           withCredentials([string(credentialsId: 'SUDO_JENKINS', variable: 'sudo_jenkins')]) {
@@ -42,6 +45,7 @@ pipeline {
           }
         }
       }
+      
       stage('Clean up') {
         steps {
           withCredentials([string(credentialsId: 'SUDO_JENKINS', variable: 'sudo_jenkins')]) {
