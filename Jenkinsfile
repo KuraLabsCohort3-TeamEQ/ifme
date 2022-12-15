@@ -12,21 +12,14 @@ pipeline {
           }
         }
       }
-      stage ('test purpose'){
-        steps {
-          sh '''#!/bin/bash
-          echo "This stage is for testing purposes"
-          '''
-        }
-      }
+      
       stage ('Push Image'){
         steps {
           withCredentials([string(credentialsId: 'DOCKERHUB_UNAME', variable: 'dockerhub_uname'),
-                            string(credentialsId: 'DOCKERHUB_PASSWD', variable: 'dockerhub_passwd'),
+                            string(credentialsId: 'DOCKERHUB_PW', variable: 'dockerhub_pw'),
                                string(credentialsId: 'SUDO_JENKINS', variable: 'sudo_jenkins')]) {
           sh '''#!/bin/bash
-          echo "Does it get to this step?"
-          # echo ${sudo_jenkins} | sudo -S docker login --username=${dockerhub_uname} --password=${dockerhub_passwd}
+          echo ${sudo_jenkins} | sudo -S docker login --username=${dockerhub_uname} --password=${dockerhub_pw}
           echo ${sudo_jenkins} | sudo -S docker push kingmant/ifmeorg
           '''
           }
