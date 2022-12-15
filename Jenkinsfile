@@ -12,7 +12,13 @@ pipeline {
           }
         }
       }
-      
+      stage ('test purpose'){
+        steps {
+          sh '''#!/bin/bash
+          echo "This stage is for testing purposes"
+          '''
+        }
+      }
       stage ('Push Image'){
         steps {
           withCredentials([string(credentialsId: 'DOCKERHUB_UNAME', variable: 'dockerhub_uname'),
