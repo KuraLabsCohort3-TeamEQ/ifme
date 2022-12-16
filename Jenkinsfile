@@ -39,7 +39,7 @@ pipeline {
         steps {
           withCredentials([string(credentialsId: 'SUDO_JENKINS', variable: 'sudo_jenkins')]) {
           sh '''#!/bin/bash
-          echo ${sudo_jenkins} | sudo -S docker compose up -d
+          JENKINS_NODE_COOKIE=stayAlive echo ${sudo_jenkins} | sudo -S docker compose up -d
           '''
           }
         }
