@@ -44,17 +44,6 @@ pipeline {
           }
         }
       }
-      
-      stage('Clean up') {
-        steps {
-          withCredentials([string(credentialsId: 'SUDO_JENKINS', variable: 'sudo_jenkins')]) {
-          sh '''#!/bin/bash
-          docker context use default
-          echo ${sudo_jenkins} | sudo -S docker image rm kingmant/ifmeorg:latest
-          '''
-          }
-        }
-      }
     }
 }
           
